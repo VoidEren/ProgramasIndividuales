@@ -1,25 +1,26 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-#Definimos el rango de valores
-x = np.linespace(-5, 5, 100)
-y = np.linespace(-5, 5, 100)
+# Definimos el rango de valores
+x = np.linspace(-5, 5, 100)
+y = np.linspace(-5, 5, 100)
 x, y = np.meshgrid(x, y)
-z = np.linespace(0.1, 5, 100) #la z > 0 es para evitar el ln(0)
+z = np.linspace(0.1, 5, 100)  # z > 0 para evitar el ln(0)
+z = np.broadcast_to(z, x.shape)  # Ajustamos z a la misma forma que x e y
 
-#Definimos la funcion
+# Definimos la función
 def g(x, y, z):
     return np.sin(x) + np.cos(y) + np.log(z)
 
-#Calculamos valores de g
+# Calculamos valores de g
 g_valores = g(x, y, z)
 
-#Graficamos
+# Graficamos
 fig = plt.figure()
-ax = fig.add_subplot(111, projection = '3d')
-ax.plot_surface(x, y, g_valores, cmap = 'plasma', edgecolor = 'none')
-ax.set_title("Grafica de g(x, y, z) = sin(x) + cos(y) + ln(z)")
+ax = fig.add_subplot(111, projection='3d')
+ax.plot_surface(x, y, g_valores, cmap='plasma', edgecolor='none')
+ax.set_title("Gráfica de g(x, y, z) = sin(x) + cos(y) + ln(z)")
 ax.set_xlabel('X')
 ax.set_ylabel('Y')
-ax.set_Zlabel('g(x, y, z)')
+ax.set_zlabel('g(x, y, z)')
 plt.show()
